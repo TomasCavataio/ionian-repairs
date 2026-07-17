@@ -1851,9 +1851,16 @@ input[aria-invalid='true'] {
     width: calc(100vw - 32px);
   }
 
-  .nav-actions > .language-button,
   .nav-actions > .button {
     display: none;
+  }
+
+  .nav-actions {
+    gap: 0.5rem;
+  }
+
+  .nav-actions > .language-button {
+    padding-inline: 0.55rem;
   }
 
   .brand-mark {
@@ -2065,6 +2072,14 @@ input[aria-invalid='true'] {
 
   .brand-name small {
     display: none;
+  }
+
+  .nav-actions {
+    gap: 0.4rem;
+  }
+
+  .nav-actions > .language-button {
+    padding-inline: 0.45rem;
   }
 
   .mobile-menu {

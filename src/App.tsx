@@ -83,7 +83,7 @@ function Header({ locale, t, privacy, onLanguage, onNavigate }: {
           {t.nav.map((item, index) => <a key={item.href} href={link(item.href)} aria-current={!privacy && index === 0 ? 'page' : undefined}>{item.label}</a>)}
         </nav>
         <div className="nav-actions">
-          <LanguageButton locale={locale} t={t} onChange={onLanguage} />
+          <LanguageButton locale={locale} t={t} onChange={() => { setOpen(false); onLanguage() }} />
           <a className="button button-small" href={link('#contact')}>{t.quote}<Arrow /></a>
           <button className="menu-button" type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? t.menuClose : t.menuOpen} onClick={() => setOpen((value) => !value)}>
             <span /><span />
@@ -98,7 +98,6 @@ function Header({ locale, t, privacy, onLanguage, onNavigate }: {
         </nav>
         <div className="mobile-menu-footer">
           <p>{t.hero.location}</p>
-          <LanguageButton locale={locale} t={t} onChange={() => { setOpen(false); onLanguage() }} />
         </div>
       </div>
     </header>
