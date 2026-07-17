@@ -1,7 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { contactConfig } from './config/contact'
 import { assetPath } from './config/site'
-import { Arrow, BrandMark, Check, GreekFlag, Message, Phone, UkFlag } from './components/Icons'
+import { Arrow, BrandMark, Check, GreekFlag, Message, Phone, ServiceIcon, UkFlag } from './components/Icons'
 import { kefaloniaOutline, kefaloniaPoints } from './content/kefaloniaMap'
 import { content, localeFromPath, localizedPath, type Locale, type SiteContent } from './i18n/content'
 
@@ -148,10 +148,12 @@ function Services({ t }: { t: SiteContent }) {
         <SectionHeading kicker={t.sections.servicesKicker} title={t.sections.servicesTitle} text={t.sections.servicesIntro} />
         <div className="service-editorial">
           {t.services.map((service, index) => (
-            <article className={`service-item reveal service-${index + 1}`} key={service.title}>
-              <div className="service-index">{String(index + 1).padStart(2, '0')}</div>
-              <div><h3>{service.title}</h3><p>{service.text}</p></div>
-              <span className="service-glyph" aria-hidden="true">{index % 2 === 0 ? '╱' : '┐'}</span>
+            <article className="service-item reveal" key={service.title}>
+              <div className="service-topline">
+                <span className="service-icon"><ServiceIcon kind={service.icon} /></span>
+                <span className="service-index">{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <div className="service-copy"><h3>{service.title}</h3><p>{service.text}</p></div>
             </article>
           ))}
         </div>
