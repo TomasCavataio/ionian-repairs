@@ -13,7 +13,7 @@ for (const retiredService of ['Ηλεκτρολογικές εργασίες', '
   if (source.includes(retiredService)) throw new Error(`Retired service still present: ${retiredService}`)
 }
 
-if (!source.includes("pathname === '/el'") || !source.includes("privacy ? '/privacy' : '/'")) {
+if (!source.includes("localizedPathname === '/el'") || !source.includes('withBasePath(route)')) {
   throw new Error('English is expected to be the default locale at the root path.')
 }
 

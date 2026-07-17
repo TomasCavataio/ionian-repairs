@@ -1,5 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { contactConfig } from './config/contact'
+import { assetPath } from './config/site'
 import { Arrow, BrandMark, Check, GreekFlag, Message, Phone, UkFlag } from './components/Icons'
 import { kefaloniaOutline, kefaloniaPoints } from './content/kefaloniaMap'
 import { content, localeFromPath, localizedPath, type Locale, type SiteContent } from './i18n/content'
@@ -7,7 +8,7 @@ import { content, localeFromPath, localizedPath, type Locale, type SiteContent }
 type ImageKey = 'hero' | 'bathroom'
 
 function ResponsiveImage({ image, alt, className, eager = false }: { image: ImageKey; alt: string; className?: string; eager?: boolean }) {
-  const base = `/images/${image === 'hero' ? 'hero' : 'bathroom'}-provisional`
+  const base = assetPath(`images/${image === 'hero' ? 'hero' : 'bathroom'}-provisional`)
   return (
     <picture>
       <source type="image/webp" srcSet={`${base}-768.webp 768w, ${base}-1536.webp 1536w`} sizes="(max-width: 800px) 100vw, 60vw" />
@@ -458,6 +459,7 @@ function usePageMetadata(locale: Locale, t: SiteContent, privacy: boolean) {
   useEffect(() => {
     const origin = window.location.origin
     const path = localizedPath(locale, privacy)
+    const socialImage = `${origin}${assetPath('images/hero-provisional-1536.jpg')}`
     const title = privacy ? `${t.privacy.title} | ${t.companyShort}` : t.seo.title
     const description = privacy ? t.privacy.intro : t.seo.description
     document.documentElement.lang = locale
@@ -468,12 +470,12 @@ function usePageMetadata(locale: Locale, t: SiteContent, privacy: boolean) {
     upsertMeta('meta[property="og:type"]', { property: 'og:type', content: 'website' })
     upsertMeta('meta[property="og:locale"]', { property: 'og:locale', content: locale === 'el' ? 'el_GR' : 'en_GB' })
     upsertMeta('meta[property="og:url"]', { property: 'og:url', content: `${origin}${path}` })
-    upsertMeta('meta[property="og:image"]', { property: 'og:image', content: `${origin}/images/hero-provisional-1536.jpg` })
+    upsertMeta('meta[property="og:image"]', { property: 'og:image', content: socialImage })
     upsertMeta('meta[property="og:image:alt"]', { property: 'og:image:alt', content: t.seo.imageAlt })
     upsertMeta('meta[name="twitter:card"]', { name: 'twitter:card', content: 'summary_large_image' })
     upsertMeta('meta[name="twitter:title"]', { name: 'twitter:title', content: title })
     upsertMeta('meta[name="twitter:description"]', { name: 'twitter:description', content: description })
-    upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: `${origin}/images/hero-provisional-1536.jpg` })
+    upsertMeta('meta[name="twitter:image"]', { name: 'twitter:image', content: socialImage })
     upsertLink('canonical', `${origin}${path}`)
     upsertLink('alternate', `${origin}${localizedPath('el', privacy)}`, 'el')
     upsertLink('alternate', `${origin}${localizedPath('en', privacy)}`, 'en')

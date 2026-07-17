@@ -1,3 +1,5 @@
+import { stripBasePath, withBasePath } from '../config/site'
+
 export type Locale = 'el' | 'en'
 
 const el = {
@@ -282,10 +284,13 @@ export const content = { el, en } as const
 export type SiteContent = Widen<typeof el>
 
 export function localeFromPath(pathname: string): Locale {
-  return pathname === '/el' || pathname.startsWith('/el/') ? 'el' : 'en'
+  const localizedPathname = stripBasePath(pathname)
+  return localizedPathname === '/el' || localizedPathname.startsWith('/el/') ? 'el' : 'en'
 }
 
 export function localizedPath(locale: Locale, privacy = false) {
-  if (locale === 'el') return privacy ? '/el/privacy' : '/el'
-  return privacy ? '/privacy' : '/'
+  const route = locale === 'el'
+    ? (privacy ? '/el/privacy' : '/el')
+    : (privacy ? '/privacy' : '/')
+  return withBasePath(route)
 }

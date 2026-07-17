@@ -1,3 +1,5 @@
+import { assetPath } from './site'
+
 /** Replace the empty values below before launch. No fictitious contact details are exposed. */
 export const contactConfig = {
   phone: '',
@@ -7,17 +9,17 @@ export const contactConfig = {
   streetAddress: '',
   taxId: '',
   formEndpoint: '',
-  siteUrl: 'https://example.com',
+  siteUrl: 'https://tomascavataio.github.io/ionian-repairs/',
 } as const
 
 export const assetConfig = {
   hero: {
-    base: '/images/hero-provisional',
+    base: assetPath('images/hero-provisional'),
     width: 1536,
     height: 1024,
   },
   bathroom: {
-    base: '/images/bathroom-provisional',
+    base: assetPath('images/bathroom-provisional'),
     width: 1536,
     height: 1024,
   },

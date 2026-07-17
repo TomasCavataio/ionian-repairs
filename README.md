@@ -43,6 +43,12 @@ El script reproducible `work/optimize_images.py` espera los PNG fuente dentro de
 
 1. Completar `src/config/contact.ts` con teléfono, WhatsApp, email, URL final y endpoint de formulario.
 2. Sustituir las fotografías provisionales y actualizar los proyectos en `src/i18n/content.ts`.
-3. Reemplazar `https://example.com` en `public/robots.txt` y `public/sitemap.xml` por el dominio definitivo.
+3. Reemplazar la URL de GitHub Pages en `src/config/contact.ts`, `public/robots.txt` y `public/sitemap.xml` cuando exista un dominio definitivo.
 4. Completar los datos fiscales y legales de la política de privacidad.
 5. Conectar el endpoint del formulario y confirmar su política de retención de datos.
+
+## Despliegue
+
+Cada push a `main` ejecuta las validaciones, genera el build con la base `/ionian-repairs/` y publica automáticamente en GitHub Pages:
+
+`https://tomascavataio.github.io/ionian-repairs/`
