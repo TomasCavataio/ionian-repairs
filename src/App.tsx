@@ -5,10 +5,14 @@ import { Arrow, BrandMark, Check, GreekFlag, Mail, Message, Phone, ServiceIcon, 
 import { kefaloniaOutline, kefaloniaPoints } from './content/kefaloniaMap'
 import { content, localeFromPath, localizedPath, type Locale, type SiteContent } from './i18n/content'
 
-type ImageKey = 'hero' | 'bathroom'
+type ImageKey = 'hero' | 'bathroom' | 'project-meraki-1' | 'project-meraki-2' | 'project-meraki-3'
 
 function ResponsiveImage({ image, alt, className, eager = false }: { image: ImageKey; alt: string; className?: string; eager?: boolean }) {
-  const base = assetPath(`images/${image === 'hero' ? 'hero' : 'bathroom'}-provisional`)
+  const projectImage = image.startsWith('project-meraki-')
+  const base = assetPath(projectImage ? `images/${image}` : `images/${image === 'hero' ? 'hero' : 'bathroom'}-provisional`)
+  if (projectImage) {
+    return <img className={className} src={`${base}.webp`} width="1360" height="907" loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : 'auto'} decoding="async" alt={alt} />
+  }
   return (
     <picture>
       <source type="image/webp" srcSet={`${base}-768.webp 768w, ${base}-1536.webp 1536w`} sizes="(max-width: 800px) 100vw, 60vw" />
