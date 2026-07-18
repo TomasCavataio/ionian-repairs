@@ -113,7 +113,7 @@ const el = {
     whatsapp: 'WhatsApp',
     pending: 'Τα στοιχεία επικοινωνίας θα προστεθούν πριν τη δημοσίευση.',
     fields: {
-      name: 'Ονοματεπώνυμο', phone: 'Τηλέφωνο', email: 'Email', location: 'Περιοχή ακινήτου',
+      name: 'Ονοματεπώνυμο', phone: 'Τηλέφωνο', phonePrefix: 'Πρόθεμα χώρας', email: 'Email', location: 'Περιοχή ακινήτου',
       service: 'Είδος εργασίας', details: 'Περιγραφή εργασίας', method: 'Προτιμώμενος τρόπος επικοινωνίας',
       consent: 'Συμφωνώ να χρησιμοποιηθούν τα στοιχεία μου αποκλειστικά για την απάντηση στο αίτημά μου.',
     },
@@ -244,7 +244,7 @@ const en: Widen<typeof el> = {
     text: 'Tell us about the property, its location and the type of work required. We’ll contact you to discuss the next steps.',
     direct: 'Prefer to speak directly?', call: 'Call', whatsapp: 'WhatsApp', pending: 'Contact details will be added before launch.',
     fields: {
-      name: 'Full name', phone: 'Phone', email: 'Email', location: 'Property location', service: 'Type of work',
+      name: 'Full name', phone: 'Phone', phonePrefix: 'Country prefix', email: 'Email', location: 'Property location', service: 'Type of work',
       details: 'Project details', method: 'Preferred contact method',
       consent: 'I agree that my details may be used only to respond to my enquiry.',
     },

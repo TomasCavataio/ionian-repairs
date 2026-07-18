@@ -1441,6 +1441,12 @@ button {
   transition: border-color 160ms ease, background-color 160ms ease;
 }
 
+.phone-input {
+  display: grid;
+  grid-template-columns: minmax(145px, 0.9fr) 1.1fr;
+  gap: 0.8rem;
+}
+
 .field input,
 .field select {
   height: 50px;

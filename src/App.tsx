@@ -1,5 +1,5 @@
 import { useEffect, useId, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
-import { contactConfig, getContactDetails } from './config/contact'
+import { contactConfig, getContactDetails, phonePrefixes } from './config/contact'
 import { assetPath } from './config/site'
 import { Arrow, BrandMark, Check, GreekFlag, Mail, Message, Phone, ServiceIcon, UkFlag } from './components/Icons'
 import { kefaloniaOutline, kefaloniaPoints } from './content/kefaloniaMap'
@@ -343,9 +343,11 @@ function Contact({ locale, t }: { locale: Locale; t: SiteContent }) {
     }
     setStatus('loading')
     try {
+      const phone = String(data.get('phone') ?? '').trim()
       data.set('_subject', locale === 'el' ? 'Νέο αίτημα — Ιόνια Τεχνική' : 'New enquiry — Ionian Technical')
       data.set('_template', 'table')
       data.set('_replyto', email)
+      data.set('phone', `${data.get('prefix')} ${phone}`)
       data.set('_url', window.location.href)
       data.set('language', locale === 'el' ? 'Greek' : 'English')
       const response = await fetch(contactConfig.formEndpoint, {
@@ -382,7 +384,7 @@ function Contact({ locale, t }: { locale: Locale; t: SiteContent }) {
         <form ref={formRef} className="contact-form" onSubmit={submit} noValidate>
           <div className="form-grid">
             <Field label={t.contact.fields.name} name="name" error={errors.name}><input id="name" name="name" autoComplete="name" placeholder={t.contact.placeholders.name} {...inputProps('name')} /></Field>
-            <Field label={t.contact.fields.phone} name="phone" error={errors.phone}><input id="phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" placeholder={t.contact.placeholders.phone} {...inputProps('phone')} /></Field>
+            <Field label={t.contact.fields.phone} name="phone" error={errors.phone}><div className="phone-input"><select id="prefix" name="prefix" aria-label={t.contact.fields.phonePrefix} defaultValue="+34">{phonePrefixes.map(([country, prefix]) => <option value={prefix} key={`${country}-${prefix}`}>{country} ({prefix})</option>)}</select><input id="phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" placeholder={t.contact.placeholders.phone} {...inputProps('phone')} /></div></Field>
             <Field label={t.contact.fields.email} name="email" error={errors.email}><input id="email" name="email" type="email" autoComplete="email" placeholder={t.contact.placeholders.email} {...inputProps('email')} /></Field>
             <Field label={t.contact.fields.location} name="location" error={errors.location}><input id="location" name="location" autoComplete="address-level2" placeholder={t.contact.placeholders.location} {...inputProps('location')} /></Field>
             <Field label={t.contact.fields.service} name="service" error={errors.service}>
