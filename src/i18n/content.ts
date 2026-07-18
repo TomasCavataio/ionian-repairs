@@ -30,7 +30,6 @@ const el = {
     secondary: 'Δείτε τις υπηρεσίες μας',
     location: 'Ληξούρι · Όλη η Κεφαλονιά',
     imageAlt: 'Ανακαινισμένη αυλή με ασβεστωμένους τοίχους, πέτρινο δάπεδο και μπλε ξύλινη πόρτα',
-    imageNote: 'Προσωρινή φωτογραφία · αντικαταστήστε με πραγματικό έργο',
   },
   trust: [
     'Άμεση επικοινωνία',
@@ -184,7 +183,6 @@ const en: Widen<typeof el> = {
     description: 'Based in Lixouri, we provide repair, maintenance and renovation services for homes and commercial properties across Kefalonia.',
     primary: 'Request an estimate', secondary: 'Explore our services', location: 'Lixouri · All of Kefalonia',
     imageAlt: 'Renovated courtyard with limewashed walls, stone paving and a deep blue timber door',
-    imageNote: 'Temporary photography · replace with a real project',
   },
   trust: ['Direct communication', 'Clear estimates', 'Careful workmanship', 'Service across Kefalonia'],
   sections: {

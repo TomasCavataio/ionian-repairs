@@ -124,9 +124,8 @@ function Hero({ t }: { t: SiteContent }) {
           <p className="hero-location"><span className="location-dot" />{t.hero.location}</p>
         </div>
         <figure className="hero-media">
-          <ResponsiveImage image="hero" alt={t.hero.imageAlt} className="hero-image" eager />
+          <ResponsiveImage image="project-meraki-2" alt={t.hero.imageAlt} className="hero-image" eager />
           <div className="hero-arch" aria-hidden="true" />
-          <figcaption>{t.hero.imageNote}</figcaption>
         </figure>
       </div>
       <div className="plan-line plan-line-one" aria-hidden="true" />

@@ -17,7 +17,7 @@
   --font-display: 'Manrope', 'Noto Sans', system-ui, sans-serif;
   --font-body: 'Noto Sans', system-ui, sans-serif;
   --shell: min(1320px, calc(100vw - 80px));
-  --section: clamp(5.75rem, 10vw, 10rem);
+  --section: 4rem;
   color: var(--ink);
   font-family: var(--font-body);
   font-synthesis: none;
@@ -1832,7 +1832,7 @@ input[aria-invalid='true'] {
 @media (max-width: 800px) {
   :root {
     --shell: calc(100vw - 40px);
-    --section: 5.5rem;
+    --section: 4rem;
   }
 
   .site-header,
