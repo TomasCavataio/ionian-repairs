@@ -77,7 +77,7 @@ const el = {
   filters: ['Όλα', 'Ανακαινίσεις', 'Εσωτερικοί χώροι', 'Εξωτερικοί χώροι', 'Επισκευές'],
   projects: [
     { category: 'Ανακαινίσεις', title: 'Υπνοδωμάτιο με πέτρινη επένδυση', meta: 'Ολοκληρωμένη ανακαίνιση', image: 'project-meraki-1' },
-    { category: 'Εσωτερικοί χώροι', title: 'Μπάνιο με μαρμάρινες επιφάνειες', meta: 'Ολοκληρωμένη ανακαίνιση', image: 'project-meraki-2' },
+    { category: 'Εσωτερικοί χώροι', title: 'Μπάνιο με μαρμάρινες επιφάνειες', meta: 'Ολοκληρωμένη ανακαίνιση', image: 'bathroom' },
     { category: 'Εσωτερικοί χώροι', title: 'Φωτεινό καθιστικό', meta: 'Ολοκληρωμένη ανακαίνιση', image: 'project-meraki-3' },
   ],
   projectDemo: 'Πραγματικό έργο',
@@ -219,7 +219,7 @@ const en: Widen<typeof el> = {
   filters: ['All', 'Renovations', 'Interiors', 'Exteriors', 'Repairs'],
   projects: [
     { category: 'Renovations', title: 'Bedroom with stone feature wall', meta: 'Completed renovation', image: 'project-meraki-1' },
-    { category: 'Interiors', title: 'Bathroom with marble surfaces', meta: 'Completed renovation', image: 'project-meraki-2' },
+    { category: 'Interiors', title: 'Bathroom with marble surfaces', meta: 'Completed renovation', image: 'bathroom' },
     { category: 'Interiors', title: 'Bright living space', meta: 'Completed renovation', image: 'project-meraki-3' },
   ],
   projectDemo: 'Completed project',
