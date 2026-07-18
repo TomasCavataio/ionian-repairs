@@ -1,16 +1,22 @@
 import { assetPath } from './site'
 
-/** Replace the empty values below before launch. No fictitious contact details are exposed. */
+/** Public contact details and static-form delivery configuration. */
 export const contactConfig = {
-  phone: '',
-  whatsapp: '',
-  email: '',
+  email: 'ReginaLaka22@gmail.com',
+  phoneByLocale: {
+    en: { display: '+34 604 239 291', dial: '+34604239291', whatsapp: '34604239291' },
+    el: { display: '+30 694 603 7783', dial: '+306946037783', whatsapp: '306946037783' },
+  },
   legalName: '',
   streetAddress: '',
   taxId: '',
-  formEndpoint: '',
+  formEndpoint: 'https://formsubmit.co/ajax/ReginaLaka22@gmail.com',
   siteUrl: 'https://tomascavataio.github.io/ionian-repairs/',
 } as const
+
+export function getContactDetails(locale: 'en' | 'el') {
+  return { email: contactConfig.email, ...contactConfig.phoneByLocale[locale] }
+}
 
 export const assetConfig = {
   hero: {

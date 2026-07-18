@@ -1626,14 +1626,22 @@ input[aria-invalid='true'] {
   color: var(--white);
 }
 
-.pending-data {
-  display: inline-block;
+.footer-contact-links {
+  display: grid;
+  gap: 0.45rem;
   margin: 0.8rem 0 1.2rem;
-  padding: 0.35rem 0.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.4) !important;
-  font-size: 0.59rem !important;
-  text-transform: uppercase;
+}
+
+.footer-contact-links a {
+  width: fit-content;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.7rem;
+  overflow-wrap: anywhere;
+  transition: color 160ms ease;
+}
+
+.footer-contact-links a:hover {
+  color: var(--white);
 }
 
 .footer-language {

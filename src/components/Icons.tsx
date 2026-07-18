@@ -14,6 +14,10 @@ export function Message({ ...props }: IconProps) {
   return <svg viewBox="0 0 24 24" aria-hidden="true" {...props}><path d="M12 3a8.5 8.5 0 0 0-7.3 12.8L3.5 21l5.3-1.1A8.5 8.5 0 1 0 12 3Z" /><path d="M8.1 8.2c.6 3.5 2.3 5.3 5.8 5.8" /></svg>
 }
 
+export function Mail({ ...props }: IconProps) {
+  return <svg viewBox="0 0 24 24" aria-hidden="true" {...props}><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m4 7 8 6 8-6" /></svg>
+}
+
 export function Check({ ...props }: IconProps) {
   return <svg viewBox="0 0 20 20" aria-hidden="true" {...props}><path d="m4 10 4 4 8-9" /></svg>
 }

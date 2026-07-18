@@ -1,7 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState, type FormEvent, type ReactNode } from 'react'
-import { contactConfig } from './config/contact'
+import { contactConfig, getContactDetails } from './config/contact'
 import { assetPath } from './config/site'
-import { Arrow, BrandMark, Check, GreekFlag, Message, Phone, ServiceIcon, UkFlag } from './components/Icons'
+import { Arrow, BrandMark, Check, GreekFlag, Mail, Message, Phone, ServiceIcon, UkFlag } from './components/Icons'
 import { kefaloniaOutline, kefaloniaPoints } from './content/kefaloniaMap'
 import { content, localeFromPath, localizedPath, type Locale, type SiteContent } from './i18n/content'
 
@@ -320,12 +320,13 @@ function Contact({ locale, t }: { locale: Locale; t: SiteContent }) {
   const [errors, setErrors] = useState<FormErrors>({})
   const formRef = useRef<HTMLFormElement>(null)
   const privacyPath = localizedPath(locale, true)
+  const contact = getContactDetails(locale)
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const form = event.currentTarget
     const data = new FormData(form)
-    if (data.get('website')) { setStatus('success'); return }
+    if (data.get('_honey')) { setStatus('success'); return }
     const next: FormErrors = {}
     const required = ['name', 'phone', 'email', 'location', 'service', 'details', 'method'] as const
     required.forEach((name) => { if (!String(data.get(name) ?? '').trim()) next[name] = t.contact.required })
@@ -340,12 +341,16 @@ function Contact({ locale, t }: { locale: Locale; t: SiteContent }) {
     }
     setStatus('loading')
     try {
-      if (contactConfig.formEndpoint) {
-        const response = await fetch(contactConfig.formEndpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-        if (!response.ok) throw new Error('Form submission failed')
-      } else {
-        await new Promise((resolve) => window.setTimeout(resolve, 500))
-      }
+      data.set('_subject', locale === 'el' ? 'Νέο αίτημα — Ιόνια Τεχνική' : 'New enquiry — Ionian Technical')
+      data.set('_template', 'table')
+      data.set('_url', window.location.href)
+      data.set('language', locale === 'el' ? 'Greek' : 'English')
+      const response = await fetch(contactConfig.formEndpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(Object.fromEntries(data.entries())),
+      })
+      if (!response.ok) throw new Error('Form submission failed')
       setStatus('success')
       setErrors({})
       formRef.current?.reset()
@@ -355,7 +360,6 @@ function Contact({ locale, t }: { locale: Locale; t: SiteContent }) {
   }
 
   const inputProps = (name: keyof FormErrors) => ({ 'aria-invalid': Boolean(errors[name]), 'aria-describedby': errors[name] ? `${name}-error` : undefined })
-  const unavailable = !contactConfig.phone
   return (
     <section id="contact" className="contact section-pad">
       <div className="shell contact-grid">
@@ -366,10 +370,10 @@ function Contact({ locale, t }: { locale: Locale; t: SiteContent }) {
           <div className="direct-contact">
             <p>{t.contact.direct}</p>
             <div>
-              {contactConfig.phone ? <a href={`tel:${contactConfig.phone}`}><Phone />{t.contact.call}</a> : <button type="button" disabled><Phone />{t.contact.call}</button>}
-              {contactConfig.whatsapp ? <a href={`https://wa.me/${contactConfig.whatsapp}`}><Message />{t.contact.whatsapp}</a> : <button type="button" disabled><Message />{t.contact.whatsapp}</button>}
+              <a href={`tel:${contact.dial}`}><Phone />{t.contact.call}</a>
+              <a href={`https://wa.me/${contact.whatsapp}`}><Message />{t.contact.whatsapp}</a>
+              <a href={`mailto:${contact.email}`}><Mail />{t.contact.fields.email}</a>
             </div>
-            {unavailable && <small>{t.contact.pending}</small>}
           </div>
         </div>
         <form ref={formRef} className="contact-form" onSubmit={submit} noValidate>
@@ -387,7 +391,7 @@ function Contact({ locale, t }: { locale: Locale; t: SiteContent }) {
             <div className="field field-wide">
               <Field label={t.contact.fields.details} name="details" error={errors.details}><textarea id="details" name="details" rows={5} placeholder={t.contact.placeholders.details} {...inputProps('details')} /></Field>
             </div>
-            <div className="honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" /></div>
+            <div className="honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="_honey" tabIndex={-1} autoComplete="off" aria-hidden="true" /></div>
             <div className={`consent field-wide${errors.consent ? ' has-error' : ''}`}>
               <input id="consent" name="consent" type="checkbox" aria-invalid={Boolean(errors.consent)} aria-describedby={errors.consent ? 'consent-error' : undefined} />
               <label htmlFor="consent">{t.contact.fields.consent} <a href={privacyPath}>{t.contact.privacyLink}</a></label>
@@ -406,24 +410,26 @@ function Contact({ locale, t }: { locale: Locale; t: SiteContent }) {
 
 function Footer({ locale, t, onLanguage }: { locale: Locale; t: SiteContent; onLanguage: () => void }) {
   const home = localizedPath(locale)
+  const contact = getContactDetails(locale)
   return (
     <footer className="footer">
       <div className="shell footer-grid">
         <div className="footer-brand"><a className="brand" href={home}><BrandMark /><span className="brand-name"><strong>{t.companyShort}</strong><small>{t.brandLocality}</small></span></a><p>{t.footer.text}</p></div>
         <div><h2>{t.footer.navigation}</h2><ul>{t.nav.slice(0, 4).map((item) => <li key={item.href}><a href={`${home}${item.href}`}>{item.label}</a></li>)}</ul></div>
         <div><h2>{t.footer.services}</h2><ul>{t.services.slice(0, 4).map((item) => <li key={item.title}><a href={`${home}#services`}>{item.title}</a></li>)}</ul></div>
-        <div><h2>{t.footer.contact}</h2><p>{t.footer.location}</p><p className="pending-data">{t.footer.placeholder}</p><LanguageButton locale={locale} t={t} onChange={onLanguage} className="footer-language" /></div>
+        <div><h2>{t.footer.contact}</h2><p>{t.footer.location}</p><div className="footer-contact-links"><a href={`tel:${contact.dial}`}>{contact.display}</a><a href={`mailto:${contact.email}`}>{contact.email}</a></div><LanguageButton locale={locale} t={t} onChange={onLanguage} className="footer-language" /></div>
       </div>
       <div className="shell footer-base"><p>© {new Date().getFullYear()} {t.company}. {t.footer.rights}</p><div><a href={localizedPath(locale, true)}>{t.contact.privacyLink}</a><a href="#home">{t.footer.backTop} ↑</a></div></div>
     </footer>
   )
 }
 
-function MobileContact({ t }: { t: SiteContent }) {
+function MobileContact({ locale, t }: { locale: Locale; t: SiteContent }) {
+  const contact = getContactDetails(locale)
   return (
     <aside className="mobile-contact" aria-label={t.footer.contact}>
-      {contactConfig.phone ? <a href={`tel:${contactConfig.phone}`}><Phone />{t.contact.call}</a> : <span aria-disabled="true"><Phone />{t.contact.call}</span>}
-      {contactConfig.whatsapp ? <a href={`https://wa.me/${contactConfig.whatsapp}`}><Message />{t.contact.whatsapp}</a> : <span aria-disabled="true"><Message />{t.contact.whatsapp}</span>}
+      <a href={`tel:${contact.dial}`}><Phone />{t.contact.call}</a>
+      <a href={`https://wa.me/${contact.whatsapp}`}><Message />{t.contact.whatsapp}</a>
       <a href="#contact"><Arrow />{t.quote}</a>
     </aside>
   )
@@ -536,7 +542,7 @@ export default function App() {
         <main id="main"><Hero t={t} /><TrustStrip t={t} /><Services t={t} /><Process t={t} /><Projects t={t} /><Areas t={t} /><Why t={t} /><Faq t={t} /><Contact locale={locale} t={t} /></main>
       )}
       <Footer locale={locale} t={t} onLanguage={changeLanguage} />
-      {!privacy && <MobileContact t={t} />}
+      {!privacy && <MobileContact locale={locale} t={t} />}
     </>
   )
 }
