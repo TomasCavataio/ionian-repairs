@@ -10,7 +10,7 @@ export const contactConfig = {
   legalName: '',
   streetAddress: '',
   taxId: '',
-  formEndpoint: 'https://formsubmit.co/ajax/ReginaLaka22@gmail.com',
+  formEndpoint: 'https://formsubmit.co/ajax/reginalaka22@gmail.com',
   siteUrl: 'https://tomascavataio.github.io/ionian-repairs/',
 } as const
 

@@ -346,6 +346,7 @@ function Contact({ locale, t }: { locale: Locale; t: SiteContent }) {
     try {
       data.set('_subject', locale === 'el' ? 'Νέο αίτημα — Ιόνια Τεχνική' : 'New enquiry — Ionian Technical')
       data.set('_template', 'table')
+      data.set('_replyto', email)
       data.set('_url', window.location.href)
       data.set('language', locale === 'el' ? 'Greek' : 'English')
       const response = await fetch(contactConfig.formEndpoint, {
