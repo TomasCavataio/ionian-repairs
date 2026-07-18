@@ -542,7 +542,7 @@ export default function App() {
     <>
       <Header locale={locale} t={t} privacy={privacy} onLanguage={changeLanguage} onNavigate={navigate} />
       {privacy ? <Privacy locale={locale} t={t} /> : (
-        <main id="main"><Hero t={t} /><TrustStrip t={t} /><Services t={t} /><Process t={t} /><Projects t={t} /><Areas t={t} /><Why t={t} /><Faq t={t} /><Contact locale={locale} t={t} /></main>
+        <main id="main"><Hero t={t} /><TrustStrip t={t} /><Services t={t} /><Areas t={t} /><Projects t={t} /><Process t={t} /><Why t={t} /><Faq t={t} /><Contact locale={locale} t={t} /></main>
       )}
       <Footer locale={locale} t={t} onLanguage={changeLanguage} />
       {!privacy && <MobileContact locale={locale} t={t} />}
