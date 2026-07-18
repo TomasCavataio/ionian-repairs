@@ -172,7 +172,6 @@ function Process({ t }: { t: SiteContent }) {
       <div className="shell process-grid">
         <div className="process-sticky">
           <SectionHeading inverse kicker={t.sections.processKicker} title={t.sections.processTitle} text={t.sections.processIntro} />
-          <div className="material-swatch reveal" aria-hidden="true"><span /><span /><span /></div>
         </div>
         <ol className="process-list">
           {t.process.map((step, index) => (

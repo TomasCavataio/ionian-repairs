@@ -804,19 +804,6 @@ button {
   top: 130px;
 }
 
-.material-swatch {
-  width: min(420px, 80%);
-  height: 70px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  margin-top: 3.4rem;
-  border: 1px solid var(--line-light);
-}
-
-.material-swatch span:nth-child(1) { background: var(--sand); }
-.material-swatch span:nth-child(2) { background: var(--terracotta); }
-.material-swatch span:nth-child(3) { background: var(--olive); }
-
 .process-list {
   margin: 0;
   padding: 0;
@@ -1937,10 +1924,6 @@ input[aria-invalid='true'] {
   .why-copy,
   .contact-copy {
     position: static;
-  }
-
-  .material-swatch {
-    width: 100%;
   }
 
   .projects-head {
